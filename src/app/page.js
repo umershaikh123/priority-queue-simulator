@@ -507,8 +507,14 @@ export default function Home() {
 
     const serTime = []
     for (let i = 0; i < cpLookupTable.length; i++) {
-      const serviceTime = Math.ceil(-serviceRate * Math.log(Math.random()))
-      serTime.push(serviceTime)
+      // const serviceTime = Math.ceil(-serviceRate * Math.log(Math.random()))
+      const length = cpLookupTable.length
+      // const randomR = Math.round(Math.random() * length)
+      //      const length = cpLookupTable.length - 2
+      const randomR = Math.round(Math.random() * length) // Generate a random number between 0 and 1
+      // const U = Math.random() * length // Generate a random number between 0 and 1
+      // const ST = -Math.log(1 - U) / serviceRate // Calculate service time
+      serTime.push(Math.round(randomR))
     }
     setServiceTimes(serTime)
 
