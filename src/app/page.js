@@ -293,8 +293,14 @@ export default function Home() {
     let totalTurnaroundTime = 0
 
     const lambda = parseFloat(arrivalRate)
+    const meu = parseFloat(serviceRate)
     if (isNaN(lambda) || lambda <= 0) {
       alert("Please enter a valid positive arrival rate (λ).")
+      return
+    }
+
+    if (lambda >= meu) {
+      alert("Please enter arrival rate (λ) less than mew (u).")
       return
     }
 
