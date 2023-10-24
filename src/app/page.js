@@ -13,91 +13,6 @@ import {
 import StyledButton from "@/components/Button"
 import CssTextField from "@/components/TextField"
 
-// const generatePrioritySimulatorTable = ({
-//   ArrivalTime,
-//   serviceTime,
-//   PriorityRounded,
-// }) => {
-//   const priorityQueueTable = []
-//   let currentTime = 0
-//   let totalWaitTime = 0
-//   let totalTurnaroundTime = 0
-
-//   for (let i = 0; i < ArrivalTime.length; i++) {
-//     const arrivalTime = ArrivalTime[i]
-//     const roundOff = PriorityRounded[i]
-
-//     // Calculate start time as the maximum of current time and arrival time
-//     const startTime = Math.max(currentTime, arrivalTime)
-
-//     // Calculate end time
-//     const endTime = startTime + serviceTime[i]
-
-//     // Calculate turnaround time
-//     const turnaroundTime = endTime - arrivalTime
-
-//     // Calculate wait time
-//     const waitTime = startTime - arrivalTime
-
-//     // Calculate response time
-//     const responseTime = waitTime + serviceTime[i]
-
-//     // Update the total wait and turnaround times
-//     totalWaitTime += waitTime
-//     totalTurnaroundTime += turnaroundTime
-
-//     // Add the row to the priority queue table
-//     priorityQueueTable.push({
-//       roundOff,
-//       arrivalTime,
-//       startTime,
-//       endTime,
-//       turnaroundTime,
-//       waitTime,
-//       responseTime,
-//     })
-
-//     // Update the current time for the next iteration
-//     currentTime = endTime
-//   }
-
-//   // Set the priority queue table data and update the state
-//   setPriorityQueueTable(priorityQueueTable)
-// }
-
-// // Include the simulatorTableData state in your component's state declarations
-// const [simulatorTableData, setSimulatorTableData] = useState([]);
-
-// {simulatorTableData.length > 0 && (
-//   <>
-//     <h1 className="text-2xl font-medium">Simulator Table</h1>
-//     <table className="w-full mt-4 mb-7 text-left">
-//       <thead>
-//         <tr>
-//           <th className="px-4">Priority Round Off</th>
-//           <th className="px-4">Start Time</th>
-//           <th className="px-4">End Time</th>
-//           <th className="px-4">Turnaround Time</th>
-//           <th className="px-4">Wait Time</th>
-//           <th className="px-4">Response Time</th>
-//         </tr>
-//       </thead>
-//       <tbody>
-//         {simulatorTableData.map((row, index) => (
-//           <tr key={index}>
-//             <td className="px-4">{row.roundOff}</td>
-//             <td className="px-4">{row.startTime}</td>
-//             <td className="px-4">{row.endTime}</td>
-//             <td className="px-4">{row.turnaroundTime}</td>
-//             <td className="px-4">{row.waitTime}</td>
-//             <td className="px-4">{row.responseTime}</td>
-//           </tr>
-//         ))}
-//       </tbody>
-//     </table>
-//   </>
-// )}
-
 const PriorityTable = ({ A, a, b, z0, M, C, Length }) => {
   const [tableData, setTableData] = useState([])
   const [priority, setpriority] = useState([])
@@ -305,103 +220,6 @@ function Priority(TableLength) {
     </>
   )
 }
-
-// function LastTable({ serviceTimes, arrivalTimes, cpValues }) {
-//   const [endTime, setendTime] = useState([])
-//   const [TurnaroundTime, setTurnaroundTime] = useState([])
-//   const [WaitTime, setWaitTime] = useState([])
-//   const [ResponseTime, setResponseTime] = useState([])
-//   const EndTime = []
-//   const turnaroundTime = []
-//   const waitTime = []
-//   const responseTime = []
-//   let currentTime = 0
-//   let totalWaitTime = 0
-//   let totalTurnaroundTime = 0
-
-//   console.log("arrivalTimes.length", arrivalTimes)
-//   // console.log("arrivalTimes.length", arrivalTimes.length)
-//   // console.log("serviceTimes", serviceTimes)
-//   for (let i = 0; i < arrivalTimes.length; i++) {
-//     // Calculate start time as the maximum of current time and arrival time
-//     // const startTime = Math.max(currentTime, arrivalTimes[i]);
-//     // const startTime = arrivalTimes[i]
-//     console.log("serviceTimes", serviceTimes)
-//     // Calculate end time
-//     EndTime[i] = arrivalTimes[i] + serviceTimes[i]
-//     // setendTime(prev => [...prev, endTime])
-//     // Calculate turnaround time
-//     turnaroundTime[i] = EndTime[i] - arrivalTimes[i]
-//     // setTurnaroundTime(prev => [...prev, turnaroundTime])
-
-//     // console.log("serviceTimes[i]", serviceTimes[i])
-//     // console.log("turnaroundTime[i]", turnaroundTime[i])
-//     // Calculate wait time
-//     waitTime[i] = serviceTimes[i] - turnaroundTime[i]
-//     // setWaitTime(prev => [...prev, waitTime])
-//     // Calculate response time
-//     responseTime[i] = arrivalTimes[i] + arrivalTimes[i]
-//     // setResponseTime(prev => [...prev, responseTime])
-//     // Update the total wait and turnaround times
-//     // totalWaitTime += waitTime[i]
-//     // totalTurnaroundTime += turnaroundTime[i]
-
-//     // Update the current time for the next iteration
-//   }
-
-//   console.log("waitTime", waitTime)
-//   console.log("turnaroundTime", turnaroundTime)
-//   console.log("endTime", EndTime)
-//   console.log("responseTime", responseTime)
-//   setWaitTime(waitTime)
-//   setTurnaroundTime(turnaroundTime)
-//   setendTime(EndTime)
-//   setResponseTime(responseTime)
-
-//   return (
-//     <div>
-//       <table className=" w-[90vw] mt-4 mb-7">
-//         <thead>
-//           <tr>
-//             <th className=" text-white  px-4 ">S.no#</th>
-//             <th className=" text-white  px-4">Cumulative Probability (Cp)</th>
-//             <th className=" text-white  px-4">Cp Lookup</th>
-//             <th className=" text-white  px-4">Avg Time Between Arrivals</th>
-//             <th className=" text-white  px-4">Inter Arrival Time</th>
-//             <th className=" text-white  px-4">Arrival Time</th>
-//             <th className=" text-white  px-4">Service Time</th>
-//             <th className=" text-white  px-4">Start Time</th>
-//             <th className=" text-white  px-4">End Time</th>
-//             <th className=" text-white  px-4">Turnaround Time</th>
-//             <th className=" text-white  px-4">Waiting Time</th>
-//             <th className=" text-white  px-4">Response Time</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {cpValues.map((value, index) => (
-//             <tr key={index}>
-//               <td className="  px-4">{value.x + 1}</td>
-//               <td className="  px-4">
-//                 {value.cumulativeProbability.toFixed(6)}
-//               </td>
-//               <td className="  px-4">{cpLookupTable[index].toFixed(6)}</td>
-//               <td className="  px-4">{value.x}</td>
-//               <td className="  px-4">{interArrivalTimes[index] || 0}</td>
-//               <td className="  px-4">{arrivalTimes[index] || 0}</td>
-//               <td className="  px-4">{serviceTimes[index] || 1}</td>
-
-//               <td className="  px-4">{arrivalTimes[index] || 0}</td>
-//               <td className="  px-4">{endTime[index] || 1}</td>
-//               <td className="  px-4">{TurnaroundTime[index] || 0}</td>
-//               <td className="  px-4">{WaitTime[index] || 1}</td>
-//               <td className="  px-4">{ResponseTime[index] || 1}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   )
-// }
 
 export default function Home() {
   const [arrivalRate, setArrivalRate] = useState(0)
@@ -624,48 +442,6 @@ export default function Home() {
     return factorial
   }
 
-  // const generateLastTable = async () => {
-  //   console.log("arrivalTimes", arrivalTimes)
-  //   console.log("arrivalTimes.length", arrivalTimes.length)
-  //   for (let i = 0; i < arrivalTimes.length; i++) {
-  //     // Calculate start time as the maximum of current time and arrival time
-  //     // const startTime = Math.max(currentTime, arrivalTimes[i]);
-  //     // const startTime = arrivalTimes[i]
-
-  //     // Calculate end time
-  //     EndTime[i] = arrivalTimes[i] + serviceTimes[i]
-  //     // setendTime(prev => [...prev, endTime])
-  //     // Calculate turnaround time
-  //     turnaroundTime[i] = EndTime[i] - arrivalTimes[i]
-  //     // setTurnaroundTime(prev => [...prev, turnaroundTime])
-  //     // Calculate wait time
-  //     waitTime[i] = serviceTimes[i] - turnaroundTime[i]
-  //     // setWaitTime(prev => [...prev, waitTime])
-  //     // Calculate response time
-  //     responseTime[i] = arrivalTimes[i] + arrivalTimes[i]
-  //     // setResponseTime(prev => [...prev, responseTime])
-  //     // Update the total wait and turnaround times
-  //     totalWaitTime += waitTime[i]
-  //     totalTurnaroundTime += turnaroundTime[i]
-
-  //     // Update the current time for the next iteration
-  //   }
-
-  //   console.log("waitTime", waitTime)
-  //   console.log("turnaroundTime", turnaroundTime)
-  //   console.log("endTime", EndTime)
-  //   console.log("responseTime", responseTime)
-
-  //   setLastTableGenerated(true)
-  // }
-
-  // useEffect(() => {
-  //   setWaitTime(waitTime)
-  //   setTurnaroundTime(turnaroundTime)
-  //   setendTime(endTime)
-  //   setResponseTime(responseTime)
-  // }, [LastTableGenerated])
-
   return (
     <div className=" flex flex-col  justify-center items-center space-y-8 mt-4">
       <div className=" justify-center">
@@ -781,13 +557,6 @@ export default function Home() {
             </tbody>
           </table>
 
-          {/* <div className=" flex flex-col  justify-center items-center space-y-4 mt-4 mb-12">
-            <LastTable
-              serviceTimes={serviceTimes}
-              arrivalTime={arrivalTimes}
-              cpValues={cpValues}
-            />
-          </div> */}
           <div className=" flex flex-col  justify-center items-center space-y-4 mt-4 mb-12">
             <Priority TableLength={cpValues.length} />
           </div>
