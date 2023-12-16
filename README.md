@@ -21,14 +21,14 @@ npm run dev
 
 ## Usage
 
-1. Arrival Rate and Service Rate Input
+### 1. Arrival Rate and Service Rate Input
 Start by entering the arrival rate (λ) and service rate (µ).
 Click the submit button to generate a table.
 
-2. Generated Table
+### 2. Generated Table
 The table includes the following columns:
 
-- S.no#: Serial number.
+- S.no: Serial number.
 - Cumulative Probability (Cp): Cumulative probability of arrival.
 - Cp Lookup: Lookup value for cumulative probability.
 - Avg Time Between Arrivals: Average time between arrivals.
@@ -44,7 +44,7 @@ The table includes the following columns:
 
 ![image](https://github.com/umershaikh123/priority-queue-simulator/assets/42178214/0246ff46-54cf-445b-ab31-fd9c549e6369)
 
-3. Priority Generation Inputs
+### 3. Priority Generation Inputs
 After the M/M/1 table is generated, input the parameters for priority generation.
 Click the submit button to generate random priorities for each customer based on the previous M/M/1 table.
 
