@@ -4,8 +4,8 @@ import Container from "@mui/material/Container"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "M/M/1",
-  description: "Priority Queue Simulator M/M/1",
+  title: "M/M/1 LCG",
+  description: "Priority Queue Simulator M/M/1 , LCG",
 }
 
 export default function RootLayout({ children }) {

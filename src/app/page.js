@@ -23,6 +23,41 @@ const PriorityTable = ({ A, a, b, z0, M, C, Length }) => {
   }
 
   const generateTableData = () => {
+    if (A < 0) {
+      alert("Please enter a valid positive A .")
+      return
+    }
+
+    if (a < 0) {
+      alert("Please enter a valid positive a .")
+      return
+    }
+
+    if (b < 0) {
+      alert("Please enter a valid positive b .")
+      return
+    }
+
+    if (C < 0) {
+      alert("Please enter a valid positive C .")
+      return
+    }
+
+    if (M < 0) {
+      alert("Please enter a valid positive M .")
+      return
+    }
+
+    if (z0 < 0) {
+      alert("Please enter a valid positive z0 .")
+      return
+    }
+
+    if (b < a) {
+      alert("b should be greater than a")
+      return
+    }
+
     const data = []
     let Z = z0
 
@@ -30,7 +65,6 @@ const PriorityTable = ({ A, a, b, z0, M, C, Length }) => {
     console.log("mod = ", e)
 
     for (let i = 1; i <= Length.TableLength; i++) {
-      // const R = (A * Z + C) % M
       let R = 0
 
       const calc1 = A * Z
@@ -44,13 +78,6 @@ const PriorityTable = ({ A, a, b, z0, M, C, Length }) => {
 
       data.push({ serialNo: i, Z, R, randomNumber, Y, roundOff })
       Z = R
-
-      console.log("calc2 = ", calc2)
-      console.log("M = ", parseInt(M))
-      console.log("A = ", A)
-      console.log("Z = ", Z)
-      console.log("C = ", C)
-      console.log("R = ", R)
     }
 
     setTableData(data)
@@ -308,13 +335,10 @@ export default function Home() {
     let previousArrivalTime = 0
     iATime.push(0)
     for (let i = 0; i < cpLookupTable.length - 2; i++) {
-      //const randomIndex = Math.floor(Math.random() * cpLookupTable.length)
-      // iATime.push(randomIndex)
       const length = cpLookupTable.length - 2
-      const randomR = Math.round(Math.random() * length) // Generate a random number between 0 and 1
-      //const interArrivalTime = -Math.log(1 - randomR) / arrivalRate
+      const randomR = Math.round(Math.random() * length)
+
       iATime.push(randomR)
-      //return interArrivalTime;
     }
     setInterArrivalTimes(iATime)
 
@@ -331,66 +355,34 @@ export default function Home() {
 
     const serTime = []
     for (let i = 0; i < cpLookupTable.length; i++) {
-      // const serviceTime = Math.ceil(-serviceRate * Math.log(Math.random()))
       const length = cpLookupTable.length
       console.log("cpLookupTable.length", cpLookupTable.length)
 
-      //      const length = cpLookupTable.length - 2
-      const randomR = Math.round(Math.random() * length) // Generate a random number between 0 and 1
-      // const U = Math.random() // Generate a random number between 0 and 1
-      // const ST = -Math.log(1 - U) / serviceRate // Calculate service time
-      //const ST = serviceRate * -Math.log(U) // Calculate service time
-      // const U = Math.random() // Generate a random number between 0 and 1
-      // const ST = -Math.log(1 - U) / serviceRate // Calculate service time
+      const randomR = Math.round(Math.random() * length)
 
       serTime.push(Math.round(randomR))
     }
     setServiceTimes(serTime)
 
-    // console.log("arrivalTimes.length", arrivalTimes)
-    // console.log("arrivalTimes.length", arrivalTimes.length)
-    // console.log("serviceTimes", serviceTimes)
     let startTime = 0
     for (let i = 0; i < cpLookupTable.length; i++) {
-      //  console.log("currentTime", currentTime)
-      //  console.log("arrivalTimes[i]", arrivalTimes[i])
-      // const startTime = Math.max(currentTime, arrivalTimes[i])
-
-      // console.log(
-      //   " Math.max(currentTime, arrivalTimes[i] ",
-      //   Math.max(currentTime, arrivalTimes[i])
-      // )
       start_Time.push(startTime)
-      // Calculate start time as the maximum of current time and arrival time
-      // const startTime = Math.max(currentTime, arrivalTimes[i]);
-      // const startTime = arrivalTimes[i]
-      // console.log("serviceTimes", serTime)
-      //  console.log("Endimes[", i, "] = ", serTime[i] + ArrivalTimes[i])
-      // Calculate end time
-      const r1 = startTime + serTime[i]
-      End_Time.push(r1)
-      // setendTime(prev => [...prev, endTime])
-      // Calculate turnaround time
-      const r2 = End_Time[i] - ArrivalTimes[i]
-      turnaround_Time.push(r2)
-      // setTurnaroundTime(prev => [...prev, turnaroundTime])
 
-      // console.log("serTime[i]", serTime[i])
-      // console.log("turnaroundTime[i]", turnaroundTime[i])
-      // Calculate wait time
-      // const r3 = serTime[i] - turnaround_Time[i]
+      const r1 = startTime + serTime[i]
+      End_Time.push(r1 > 0 ? r1 : -r1)
+
+      const r2 = End_Time[i] - ArrivalTimes[i]
+      turnaround_Time.push(r2 > 0 ? r2 : -r2)
+
       const r3 = startTime - ArrivalTimes[i]
-      wait_Time.push(r3)
-      // setWaitTime(prev => [...prev, waitTime])
-      // Calculate response time
+      wait_Time.push(r3 > 0 ? r3 : -r3)
+
       const r4 = wait_Time[i] + serTime[i]
-      response_Time.push(r4)
-      // setResponseTime(prev => [...prev, responseTime])
-      // Update the total wait and turnaround times
+      response_Time.push(r4 > 0 ? r4 : -r4)
+
       totalWaitTime += wait_Time[i]
       totalTurnaroundTime += turnaround_Time[i]
 
-      // Update the current time for the next iteration
       startTime = End_Time[i]
     }
 
@@ -405,37 +397,16 @@ export default function Home() {
     setendTime(End_Time)
     setResponseTime(response_Time)
 
-    // console.log("arrivalRate ", arrivalRate)
-    // console.log("serviceRate ", serviceRate)
-    // console.log("cpValues", cpValues)
-    // console.log("cpLookupTable ", cpLookupTable)
-    // console.log("interArrivalTimes ", interArrivalTimes)
-    // console.log("arrivalTimes ", arrivalTimes)
-    // console.log("serviceTimes ", serviceTimes)
-    // console.log("tableGenerated ", tableGenerated)
     setTableGenerated(true)
 
-    // Calculate Utilization Factor (ρ)
     setutilizationFactor(parseFloat(arrivalRate) / parseFloat(serviceRate))
-
-    // Calculate Average Time a Customer Spends in the System (W)
-    // setavgTimeInSystem(
-    //   utilizationFactor > 0
-    //     ? 1 / (parseFloat(serviceRate) - parseFloat(arrivalRate))
-    //     : 0
-    // )
 
     setavgTimeInSystem(1 / (parseFloat(serviceRate) - parseFloat(arrivalRate)))
 
-    // Calculate Average Time a Customer Spends Waiting in the Queue (Wq)
-    // setavgTimeInQueue(
-    //   utilizationFactor > 0 ? avgTimeInSystem - 1 / parseFloat(serviceRate) : 0
-    // )
-
     setavgTimeInQueue(avgTimeInSystem - 1 / parseFloat(serviceRate))
-    // Calculate Average Number of Customers in the Queue (Lq)
+
     setavgCustomersInQueue(parseFloat(arrivalRate) * avgTimeInQueue)
-    // Calculate Average Number of Customers in the System (L)
+
     setavgCustomersInSystem(parseFloat(arrivalRate) * avgTimeInSystem)
   }
 
@@ -451,7 +422,7 @@ export default function Home() {
   return (
     <div className=" flex flex-col  justify-center items-center space-y-8 mt-4">
       <div className=" justify-center">
-        <h1 className="text-3xl font-bold text-[]">M/M/1 Priority Simulator</h1>
+        <h1 className="text-3xl font-bold text-[]">M/M/1 LCG </h1>
       </div>
 
       {/* Inputs */}
